@@ -8,20 +8,26 @@ class TeacherDashboard:
     def __init__(self, master, teacher_id):
         self.master = master
         self.master.title("教师信息面板")
+        self.master.geometry("800x600")  # 设置窗口大小
+        self.master.geometry("800x600")  # 设置窗口大小
+        master.config(bg="#FFFFFF")
 
+        button_color = "#EC98FA"
+        button_font = ("Arial", 20)
         # 保存教师ID
         self.teacher_id = teacher_id
 
         # 创建两个按钮
-        self.teach_course_button = tk.Button(master, text="教授课程信息", command=self.show_teach_course_info)
-        self.teach_course_button.pack()
+        self.teach_course_button = tk.Button(master, text="教授课程信息", font=button_font,bg=button_color,command=self.show_teach_course_info)
+        self.teach_course_button.pack(side="left", fill="none", expand=True)
 
-        self.basic_info_button = tk.Button(master, text="基本信息", command=self.show_basic_info)
-        self.basic_info_button.pack()
+        self.basic_info_button = tk.Button(master, text="基本信息", font=button_font,bg=button_color,command=self.show_basic_info)
+        self.basic_info_button.pack(side="left", fill="none", expand=True)
 
         # 添加图表分析按钮
-        self.analyze_scores_button = tk.Button(master, text="图表分析", command=self.analyze_student_scores)
-        self.analyze_scores_button.pack()
+        self.analyze_scores_button = tk.Button(master, text="图表分析", font=button_font,bg=button_color,command=self.analyze_student_scores)
+        self.analyze_scores_button.pack(side="left", fill="none", expand=True)
+
 
     def show_teach_course_info(self):
         # 连接数据库，查询教师的教授课程信息

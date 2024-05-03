@@ -8,16 +8,20 @@ class StudentDashboard:
     def __init__(self, master, student_id):
         self.master = master
         self.master.title("学生信息面板")
+        self.master.geometry("800x600")  # 设置窗口大小
+        master.config(bg="#FFFFFF")
 
+        button_color = "#EC98FA"
+        button_font = ("Arial", 20)
         # 保存学生ID
         self.student_id = student_id
 
         # 创建两个按钮
-        self.course_button = tk.Button(master, text="课程信息", command=self.show_course_info)
-        self.course_button.pack()
+        self.course_button = tk.Button(master, text="课程信息", font=button_font,bg=button_color,command=self.show_course_info)
+        self.course_button.pack(side="left", fill="none", expand=True)
 
-        self.basic_info_button = tk.Button(master, text="基本信息", command=self.show_basic_info)
-        self.basic_info_button.pack()
+        self.basic_info_button = tk.Button(master, text="基本信息", font=button_font,bg=button_color,command=self.show_basic_info)
+        self.basic_info_button.pack(side="left", fill="none", expand=True)
 
     def show_course_info(self):
         # 连接数据库，查询学生的课程信息

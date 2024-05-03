@@ -8,16 +8,21 @@ class AdminDashboard:
     def __init__(self, master):
         self.master = master
         self.master.title("管理员信息面板")
+        self.master.geometry("800x600")  # 设置窗口大小
+        self.master.geometry("800x600")  # 设置窗口大小
+        master.config(bg="#FFFFFF")
 
+        button_color = "#EC98FA"
+        button_font = ("Arial", 20)
         # 创建三个按钮
-        self.delete_info_button = tk.Button(master, text="删除信息", command=self.show_delete_info)
-        self.delete_info_button.pack()
+        self.delete_info_button = tk.Button(master, text="删除信息", font=button_font,bg=button_color,command=self.show_delete_info)
+        self.delete_info_button.pack(side="left", fill="none", expand=True)
 
-        self.modify_info_button = tk.Button(master, text="修改信息", command=self.show_modify_info)
-        self.modify_info_button.pack()
+        self.modify_info_button = tk.Button(master, text="修改信息", font=button_font,bg=button_color,command=self.show_modify_info)
+        self.modify_info_button.pack(side="left", fill="none", expand=True)
         
-        self.add_info_button = tk.Button(master, text="增加信息", command=self.show_add_info)
-        self.add_info_button.pack()
+        self.add_info_button = tk.Button(master, text="增加信息", font=button_font,bg=button_color,command=self.show_add_info)
+        self.add_info_button.pack(side="left", fill="none", expand=True)
 
     def show_delete_info(self):
         # 创建窗口
@@ -44,13 +49,13 @@ class AdminDashboard:
         # 显示学生信息和勾选框
         for student in students:
             student_frame = tk.Frame(delete_window)
-            student_frame.pack()
+            student_frame.pack(side="left", fill="x")
             tk.Label(student_frame, text=f"ID: {student['student_id']}, Name: {student['student_name']}").pack(side="left")
             tk.Checkbutton(student_frame, variable=tk.BooleanVar()).pack(side="right")
 
         # 创建删除按钮
         delete_button = tk.Button(delete_window, text="删除", command=lambda: self.confirm_delete(delete_window, students))
-        delete_button.pack()
+        delete_button.pack(side="left", fill="x")
 
     def confirm_delete(self, window, students):
         # 连接数据库，删除勾选的学生信息
@@ -107,14 +112,14 @@ class AdminDashboard:
         # 显示学生信息和修改按钮
         for student in students:
             student_frame = tk.Frame(modify_window)
-            student_frame.pack()
+            student_frame.pack(side="left", fill="x")
             tk.Label(student_frame, text=f"ID: {student['student_id']}, Name: {student['student_name']}").pack(side="left")
             tk.Button(student_frame, text="修改", command=lambda s=student: self.show_modify_dialog(s)).pack(side="right")
 
         # 显示教师信息和修改按钮
         for teacher in teachers:
             teacher_frame = tk.Frame(modify_window)
-            teacher_frame.pack()
+            teacher_frame.pack(side="left", fill="x")
             tk.Label(teacher_frame, text=f"ID: {teacher['teacher_id']}, Name: {teacher['teacher_name']}").pack(side="left")
             tk.Button(teacher_frame, text="修改", command=lambda t=teacher: self.show_modify_dialog(t)).pack(side="right")
 
@@ -193,10 +198,10 @@ class AdminDashboard:
 
         # 创建两个按钮
         student_button = tk.Button(add_window, text="增加学生信息", command=lambda: self.show_add_student_dialog(add_window))
-        student_button.pack()
+        student_button.pack(side="left", fill="x")
 
         teacher_button = tk.Button(add_window, text="增加教师信息", command=lambda: self.show_add_teacher_dialog(add_window))
-        teacher_button.pack()
+        teacher_button.pack(side="left", fill="x")
 
     def show_add_student_dialog(self, window):
         # 创建窗口

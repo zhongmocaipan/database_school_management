@@ -1,31 +1,45 @@
 import tkinter as tk
 from tkinter import messagebox
 import pymysql
-import studentdashboard as StudentDashboard
-import teacherdashboard as TeacherDashboard
-import admindashboard as AdminDashboard
+from studentdashboard import StudentDashboard
+from teacherdashboard import TeacherDashboard
+from admindashboard import AdminDashboard
+from tkinter import PhotoImage
 
 class LoginWindow:
     def __init__(self, master):
         self.master = master
-        self.master.title("登录窗口")
+        self.master.title("NKU教务系统")
         self.master.geometry("500x500")  # 设置窗口大小
 
+        master.config(bg="#FFFFFF")
+
+        button_color = "#EC98FA"
+        button_font = ("Arial", 20)
         # 创建标签
-        self.label = tk.Label(master, text="请选择登录类型:")
+        self.label = tk.Label(master, text="")
         self.label.pack()
 
+        # 加载图片文件并缩小两倍
+        self.image = PhotoImage(file="NKU.png").subsample(2)
+
+        # 创建 Label 组件并设置图片
+        self.image_label = tk.Label(master, image=self.image)
+        self.image_label.pack()
+
+
         # 创建按钮
-        self.teacher_button = tk.Button(master, text="教师登录", command=lambda: self.open_id_password_window("教师"))
-        self.teacher_button.pack()
+        self.teacher_button = tk.Button(master, text="教师登录", font=button_font,bg=button_color, command=lambda: self.open_id_password_window("教师"))
+        self.teacher_button.pack(side="left", fill="none", expand=True)
 
-        self.admin_button = tk.Button(master, text="管理员登录", command=lambda: self.open_id_password_window("管理员"))
-        self.admin_button.pack()
+        self.admin_button = tk.Button(master, text="管理员登录", font=button_font,bg=button_color,command=lambda: self.open_id_password_window("管理员"))
+        self.admin_button.pack(side="left", fill="none", expand=True)
 
-        self.student_button = tk.Button(master, text="学生登录", command=lambda: self.open_id_password_window("学生"))
-        self.student_button.pack()
+        self.student_button = tk.Button(master, text="学生登录", font=button_font,bg=button_color,command=lambda: self.open_id_password_window("学生"))
+        self.student_button.pack(side="left", fill="none", expand=True)
 
         self.logged_in_id = None  # 初始化成功登录的学生或教师的ID为None
+
 
     def open_id_password_window(self, user_type):
         id_password_window = tk.Toplevel()
@@ -91,8 +105,11 @@ class LoginWindow:
     def open_dashboard(self, user_type):
         dashboard_window = tk.Toplevel()
         if user_type == "学生":
-            dashboard = StudentDashboard(dashboard_window, self.logged_in_id)  # 传递成功登录的学生ID
+            dashboard = StudentDashboard(dashboard_window, self.logged_in_id)  # 创建学生仪表板实例并传递成功登录的学生ID
         elif user_type == "教师":
-            dashboard = TeacherDashboard(dashboard_window, self.logged_in_id)  # 传递成功登录的教师ID
+            dashboard = TeacherDashboard(dashboard_window, self.logged_in_id)  # 创建教师仪表板实例并传递成功登录的教师ID
         elif user_type == "管理员":
-            dashboard = AdminDashboard(dashboard_window)
+            dashboard = AdminDashboard(dashboard_window)  # 创建管理员仪表板实例
+
+
+
