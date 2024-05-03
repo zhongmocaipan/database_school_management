@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../web"
+		},
+		{
+			"path": "../../大作业"
+		},
+		{
+			"path": "C:/xampp/php/www"
+		},
+		{
+			"path": "../try"
+		},
+		{
+			"path": "../../../并行实验/week3"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "web"
+	}
+}
