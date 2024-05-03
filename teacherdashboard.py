@@ -76,12 +76,11 @@ class TeacherDashboard:
                             student_name = student['student_name']
                         course_info += f"学生ID：{student_id}，学生姓名：{student_name}，分数：{score['score']}\n"
                     course_info += f"平均分：{course_stats['average_score']}，最低分：{course_stats['min_score']}，最高分：{course_stats['max_score']}\n\n"
-
-                # 显示教授课程信息
-                if course_info:
-                    messagebox.showinfo("教授课程信息", course_info)
-                else:
-                    messagebox.showinfo("教授课程信息", "无教授课程信息")
+                # 在文本框中显示教授课程信息
+                self.info_text.config(state="normal")  # 允许编辑
+                self.info_text.delete(1.0, tk.END)  # 清空文本框内容
+                self.info_text.insert(tk.END, course_info)  # 插入课程信息
+                self.info_text.config(state="disabled")  # 禁用编辑功能
         finally:
             connection.close()
 

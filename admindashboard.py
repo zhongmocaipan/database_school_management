@@ -9,7 +9,7 @@ class AdminDashboard:
         self.master = master
         self.master.title("管理员信息面板")
         self.master.geometry("800x600")  # 设置窗口大小
-        self.master.geometry("800x600")  # 设置窗口大小
+
         master.config(bg="#FFFFFF")
 
         button_color = "#EC98FA"
@@ -28,7 +28,7 @@ class AdminDashboard:
         # 创建窗口
         delete_window = tk.Toplevel(self.master)
         delete_window.title("删除信息")
-
+        delete_window.geometry("800x600")  # 设置窗口大小
         # 连接数据库，获取学生信息
         connection = pymysql.connect(
             host='localhost',
@@ -49,13 +49,13 @@ class AdminDashboard:
         # 显示学生信息和勾选框
         for student in students:
             student_frame = tk.Frame(delete_window)
-            student_frame.pack(side="left", fill="x")
+            student_frame.pack(side="top", fill="none")
             tk.Label(student_frame, text=f"ID: {student['student_id']}, Name: {student['student_name']}").pack(side="left")
-            tk.Checkbutton(student_frame, variable=tk.BooleanVar()).pack(side="right")
+            tk.Checkbutton(student_frame, variable=tk.BooleanVar()).pack()
 
         # 创建删除按钮
         delete_button = tk.Button(delete_window, text="删除", command=lambda: self.confirm_delete(delete_window, students))
-        delete_button.pack(side="left", fill="x")
+        delete_button.pack()
 
     def confirm_delete(self, window, students):
         # 连接数据库，删除勾选的学生信息
@@ -85,7 +85,7 @@ class AdminDashboard:
         # 创建窗口
         modify_window = tk.Toplevel(self.master)
         modify_window.title("修改信息")
-
+        modify_window.geometry("800x600")
         # 连接数据库，获取学生和教师信息
         connection = pymysql.connect(
             host='localhost',
@@ -112,14 +112,14 @@ class AdminDashboard:
         # 显示学生信息和修改按钮
         for student in students:
             student_frame = tk.Frame(modify_window)
-            student_frame.pack(side="left", fill="x")
-            tk.Label(student_frame, text=f"ID: {student['student_id']}, Name: {student['student_name']}").pack(side="left")
-            tk.Button(student_frame, text="修改", command=lambda s=student: self.show_modify_dialog(s)).pack(side="right")
+            student_frame.pack(side="top", fill="none")
+            tk.Label(student_frame, text=f"ID: {student['student_id']}, Name: {student['student_name']}").pack()
+            tk.Button(student_frame, text="修改", command=lambda s=student: self.show_modify_dialog(s)).pack()
 
         # 显示教师信息和修改按钮
         for teacher in teachers:
             teacher_frame = tk.Frame(modify_window)
-            teacher_frame.pack(side="left", fill="x")
+            teacher_frame.pack()
             tk.Label(teacher_frame, text=f"ID: {teacher['teacher_id']}, Name: {teacher['teacher_name']}").pack(side="left")
             tk.Button(teacher_frame, text="修改", command=lambda t=teacher: self.show_modify_dialog(t)).pack(side="right")
 
@@ -127,7 +127,7 @@ class AdminDashboard:
         # 创建窗口
         modify_dialog = tk.Toplevel(self.master)
         modify_dialog.title("修改信息")
-
+        modify_dialog.geometry("600x800")
         # 根据数据类型设置标题和标签
         if 'student_id' in data:
             modify_dialog.title("修改学生信息")
@@ -195,13 +195,13 @@ class AdminDashboard:
         # 创建窗口
         add_window = tk.Toplevel(self.master)
         add_window.title("增加信息")
-
+        add_window.geometry("800x600")
         # 创建两个按钮
         student_button = tk.Button(add_window, text="增加学生信息", command=lambda: self.show_add_student_dialog(add_window))
-        student_button.pack(side="left", fill="x")
+        student_button.pack(side="top", fill="none")
 
         teacher_button = tk.Button(add_window, text="增加教师信息", command=lambda: self.show_add_teacher_dialog(add_window))
-        teacher_button.pack(side="left", fill="x")
+        teacher_button.pack(side="top", fill="none")
 
     def show_add_student_dialog(self, window):
         # 创建窗口

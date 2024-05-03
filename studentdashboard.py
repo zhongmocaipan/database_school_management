@@ -18,10 +18,15 @@ class StudentDashboard:
 
         # 创建两个按钮
         self.course_button = tk.Button(master, text="课程信息", font=button_font,bg=button_color,command=self.show_course_info)
-        self.course_button.pack(side="left", fill="none", expand=True)
+        self.course_button.pack(side="left", fill="y")
 
         self.basic_info_button = tk.Button(master, text="基本信息", font=button_font,bg=button_color,command=self.show_basic_info)
-        self.basic_info_button.pack(side="left", fill="none", expand=True)
+        self.basic_info_button.pack(side="left", fill="y")
+
+        # 创建文本框用于显示信息
+        self.info_text = tk.Text(master, width=60, height=20)
+        self.info_text.pack(side="left", fill="both", expand=True)
+        self.info_text.config(state="disabled")  # 禁用编辑功能
 
     def show_course_info(self):
         # 连接数据库，查询学生的课程信息
@@ -45,7 +50,11 @@ class StudentDashboard:
                     course_info += f"课程名称：{row['course_name']}，分数：{row['score']}\n"
 
                 # 显示课程信息
-                messagebox.showinfo("课程信息", course_info)
+                # 在文本框中显示课程信息
+                self.info_text.config(state="normal")  # 允许编辑
+                self.info_text.delete(1.0, tk.END)  # 清空文本框内容
+                self.info_text.insert(tk.END, course_info)  # 插入课程信息
+                self.info_text.config(state="disabled")  # 禁用编辑功能
         finally:
             connection.close()
 
@@ -72,8 +81,11 @@ class StudentDashboard:
                 basic_info += f"性别：{result['gender']}\n"
                 basic_info += f"班级：{result['class']}\n"
 
-                # 显示基本信息
-                messagebox.showinfo("基本信息", basic_info)
+                # 在文本框中显示基本信息
+                self.info_text.config(state="normal")  # 允许编辑
+                self.info_text.delete(1.0, tk.END)  # 清空文本框内容
+                self.info_text.insert(tk.END, basic_info)  # 插入基本信息
+                self.info_text.config(state="disabled")  # 禁用编辑功能
         finally:
             connection.close()
 
