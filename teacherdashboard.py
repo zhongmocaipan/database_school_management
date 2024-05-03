@@ -28,6 +28,10 @@ class TeacherDashboard:
         self.analyze_scores_button = tk.Button(master, text="图表分析", font=button_font,bg=button_color,command=self.analyze_student_scores)
         self.analyze_scores_button.pack(side="left", fill="none", expand=True)
 
+        # 创建文本框用于显示基本信息
+        self.info_text = tk.Text(master, width=60, height=20)
+        self.info_text.pack(side="left", fill="both", expand=True)
+        self.info_text.config(state="disabled")  # 禁用编辑功能
 
     def show_teach_course_info(self):
         # 连接数据库，查询教师的教授课程信息
@@ -103,8 +107,11 @@ class TeacherDashboard:
                 basic_info += f"姓名：{result['teacher_name']}\n"
                 basic_info += f"科目：{result['subject']}\n"
 
-                # 显示基本信息
-                messagebox.showinfo("基本信息", basic_info)
+                # 在文本框中显示基本信息
+                self.info_text.config(state="normal")  # 允许编辑
+                self.info_text.delete(1.0, tk.END)  # 清空文本框内容
+                self.info_text.insert(tk.END, basic_info)  # 插入基本信息
+                self.info_text.config(state="disabled")  # 禁用编辑功能
         finally:
             connection.close()
     def analyze_student_scores(self):
